@@ -1,7 +1,6 @@
 #ifndef _INCLUDE_CONCOLOR_NATIVES_H_
 #define _INCLUDE_CONCOLOR_NATIVES_H_
 
-#include <sprintf.h>
 #include "extension.h"
 
 
