@@ -1,0 +1,65 @@
+# vim: set sts=2 ts=8 sw=2 tw=99 et ft=python:
+import os, sys
+
+binary = Extension.Library(builder, 'concolors.ext')
+
+# smsdk_ext.cpp will be automatically added later
+binary.sources += [
+	'extension.cpp',
+	'concolor.cpp',
+	os.path.join(Extension.sm_root, 'public', 'smsdk_ext.cpp'),
+]
+
+# hardcoded paths :)
+
+if binary.compiler.vendor == 'gcc' or binary.compiler.vendor == 'clang':
+  binary.compiler.includes += [
+    os.path.abspath(os.path.join('/home/osboxes/Desktop/sdkfolder', 'hl2sdk-sdk2013', 'public')),
+    os.path.abspath(os.path.join('/home/osboxes/Desktop/sdkfolder', 'sourcemod', 'sourcepawn')),
+    os.path.abspath(os.path.join('/home/osboxes/Desktop/sdkfolder', 'sourcemod')),
+    os.path.abspath(os.path.join('/home/osboxes/Desktop/sdkfolder', 'sourcemod', 'extensions')),
+    os.path.abspath(os.path.join('/home/osboxes/Desktop/sdkfolder', 'mmsource-1.10', 'core')),
+    os.path.abspath(os.path.join('/home/osboxes/Desktop/sdkfolder', 'mmsource-1.10', 'core', 'sourcehook')),
+    os.path.abspath(os.path.join('/home/osboxes/Desktop/sdkfolder', 'hl2sdk-sdk2013', 'game', 'shared')),
+    os.path.abspath(os.path.join('/home/osboxes/Desktop/sdkfolder', 'hl2sdk-sdk2013', 'public', 'vstdlib')),
+    os.path.abspath(os.path.join('/home/osboxes/Desktop/sdkfolder', 'hl2sdk-sdk2013', 'public', 'tier0')),
+    os.path.abspath(os.path.join('/home/osboxes/Desktop/sdkfolder', 'hl2sdk-sdk2013', 'public', 'tier1')),
+    os.path.abspath(os.path.join('/home/osboxes/Desktop/sdkfolder', 'hl2sdk-sdk2013', 'public', 'engine')),
+    os.path.abspath(os.path.join('/home/osboxes/Desktop/sdkfolder', 'hl2sdk-sdk2013', 'public')),
+    os.path.abspath(os.path.join('/home/osboxes/Desktop/sdkfolder', 'sourcemod', 'public', 'amtl')),
+    os.path.abspath(os.path.join('/home/osboxes/Desktop/sdkfolder', 'sourcemod', 'sourcepawn', 'include')),
+    os.path.abspath(os.path.join('/home/osboxes/Desktop/sdkfolder', 'sourcemod', 'public', 'amtl', 'amtl')),
+    os.path.abspath(os.path.join('/home/osboxes/Desktop/sdkfolder', 'sourcemod', 'public', 'extensions')),
+    os.path.abspath(os.path.join('/home/osboxes/Desktop/sdkfolder', 'hl2sdk-sdk2013', 'common')),
+    os.path.abspath(os.path.join('/home/osboxes/Desktop/sdkfolder', 'sourcemod', 'public')),
+	os.path.abspath(os.path.join('/home/osboxes/Desktop/sdkfolder', 'sourcemod', 'core', 'logic')),
+  ]
+elif binary.compiler.vendor == 'msvc':
+  binary.compiler.includes += [
+    os.path.abspath(os.path.join('G:/sdkfolder', 'hl2sdk-sdk2013', 'public')),
+    os.path.abspath(os.path.join('G:/sdkfolder', 'sourcemod', 'sourcepawn')),
+    os.path.abspath(os.path.join('G:/sdkfolder', 'sourcemod')),
+    os.path.abspath(os.path.join('G:/sdkfolder', 'sourcemod', 'extensions')),
+    os.path.abspath(os.path.join('G:/sdkfolder', 'mmsource-1.10', 'core')),
+    os.path.abspath(os.path.join('G:/sdkfolder', 'mmsource-1.10', 'core', 'sourcehook')),
+    os.path.abspath(os.path.join('G:/sdkfolder', 'hl2sdk-sdk2013', 'game', 'shared')),
+    os.path.abspath(os.path.join('G:/sdkfolder', 'hl2sdk-sdk2013', 'public', 'vstdlib')),
+    os.path.abspath(os.path.join('G:/sdkfolder', 'hl2sdk-sdk2013', 'public', 'tier0')),
+    os.path.abspath(os.path.join('G:/sdkfolder', 'hl2sdk-sdk2013', 'public', 'tier1')),
+    os.path.abspath(os.path.join('G:/sdkfolder', 'hl2sdk-sdk2013', 'public', 'engine')),
+    os.path.abspath(os.path.join('G:/sdkfolder', 'hl2sdk-sdk2013', 'public')),
+    os.path.abspath(os.path.join('G:/sdkfolder', 'sourcemod', 'public', 'amtl')),
+    os.path.abspath(os.path.join('G:/sdkfolder', 'sourcemod', 'sourcepawn', 'include')),
+    os.path.abspath(os.path.join('G:/sdkfolder', 'sourcemod', 'public', 'amtl', 'amtl')),
+    os.path.abspath(os.path.join('G:/sdkfolder', 'sourcemod', 'public', 'extensions')),
+    os.path.abspath(os.path.join('G:/sdkfolder', 'hl2sdk-sdk2013', 'common')),
+    os.path.abspath(os.path.join('G:/sdkfolder', 'sourcemod', 'public')),
+	os.path.abspath(os.path.join('G:/sdkfolder', 'sourcemod', 'core', 'logic')),
+  ]
+
+if binary.compiler.vendor == 'gcc' or binary.compiler.vendor == 'clang':
+  binary.compiler.cxxflags += ['-fno-rtti']
+elif binary.compiler.vendor == 'msvc':
+  binary.compiler.cxxflags += ['/GR-']
+
+Extension.extensions += [builder.Add(binary)]
